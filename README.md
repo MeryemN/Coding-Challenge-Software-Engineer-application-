@@ -1,23 +1,55 @@
-# Fullstacl-laravel-vuejs
+# Fullstack Laravel-VueJS
 
-## Prerequisites
-Before you begin, ensure you have installed the following:
+This project is a full-stack web application template integrating Laravel 8 and Vue.js 3.
+
+## Requirements
+
 - PHP 7.4
+- Node.js
 - Vue 3
 - Laravel 8
-- Node.js
+- MySQL
 
-## Installation Instructions
+## Getting Started
 
-Follow these steps to install and run the project locally:
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-1. Edit the `.env` file and configure the database by setting the database name as follows: `DB_DATABASE=laravel_vue`.
+### Installation
 
-2. Make sure the following folders exist in your project:
-   - `node_modules`
-   - `vendor`
+1. **Clone the repository:**
 
-   If these folders do not exist, run the following commands:
+   ```bash
+   git clone https://github.com/MeryemN/Coding-Challenge-Software-Engineer-application-.git
+   cd Coding-Challenge-Software-Engineer-application-
+   ```
+
+2. **Set up the environment:**
+   Copy the `.env.example` file to create your own `.env` file. Update your database credentials:
+
+   ```
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1                # localhost
+   DB_PORT=3306                     # default port for MySQL Database
+   DB_DATABASE=your_database_name
+   DB_USERNAME=your_db_user
+   DB_PASSWORD=your_db_password     # (if set)
+   ```
+
+3. **Install dependencies:**
+   If you don't see directories like `node_modules/` and `vendor/`, install the project dependencies:
+
    ```bash
    composer install
    npm install
+   ```
+
+4. **Run the application:**
+
+   - To start the PHP server:
+     ```bash
+     php artisan serve
+     ```
+   - To compile your Vue.js assets, run:
+     ```bash
+     npm run dev
+     ```
