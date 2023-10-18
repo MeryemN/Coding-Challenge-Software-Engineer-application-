@@ -18,19 +18,11 @@ class CategoryService implements CategoryServiceInterface
 
     public function createCategory(Request $request)
     {
-        // Validate the request data
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:50',
+        $validatedData = $request->validate([
+            'name' => 'required|string',
             'parent_id' => 'integer|nullable',
         ]);
-
-        // If validation passes, create a new product
-        if ($validator->fails()) {
-            return ['error' => $validator->errors()];
-        }
-
-        // If validation passes, create a new category
-        return $this->categoryRepository->create($request->all());
+        return $this->categoryRepository->create($validatedData);
     }
 
     public function updateCategory(Request $request, $id)

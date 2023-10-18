@@ -19736,7 +19736,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'App'
+  name: "App"
 });
 
 /***/ }),
@@ -19766,7 +19766,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   setup: function setup() {
     var category = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)({
-      name: '',
+      name: "",
       parent_id: null // Initialize to null
     });
 
@@ -19782,7 +19782,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context.prev = 0;
               _context.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().get('/api/categories');
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/categories");
             case 3:
               response = _context.sent;
               parentCategories.value = response.data;
@@ -19810,27 +19810,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/categories', category.value);
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().post("/api/categories", category.value);
             case 3:
               response = _context2.sent;
+              console.log(response);
               if (response.status === 201) {
                 router.push({
-                  name: 'category-list'
+                  name: "category-list"
                 });
               } else {
-                console.error('Category creation failed.');
+                console.error("Category creation failed.");
               }
-              _context2.next = 10;
+              _context2.next = 11;
               break;
-            case 7:
-              _context2.prev = 7;
+            case 8:
+              _context2.prev = 8;
               _context2.t0 = _context2["catch"](0);
               console.error(_context2.t0);
-            case 10:
+            case 11:
             case "end":
               return _context2.stop();
           }
-        }, _callee2, null, [[0, 7]]);
+        }, _callee2, null, [[0, 8]]);
       }));
       return function createCategory() {
         return _ref2.apply(this, arguments);
@@ -19871,12 +19872,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
-(axios__WEBPACK_IMPORTED_MODULE_1___default().defaults).headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+(axios__WEBPACK_IMPORTED_MODULE_1___default().defaults).headers.common["X-CSRF-TOKEN"] = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   setup: function setup() {
     var category = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)({
       id: null,
-      name: '',
+      name: "",
       // parent: { id: null },
       parent_id: null // Change to 'parent_id'
     });
@@ -19916,7 +19917,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().get('/api/categories');
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/categories");
             case 3:
               categories.value = _context2.sent.data;
               _context2.next = 9;
@@ -19943,13 +19944,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context3.prev = 0;
               formData = new FormData();
-              formData.append('name', category.value.name);
-              formData.append('parent_id', category.value.parent_id); // Use 'parent_id'
+              formData.append("name", category.value.name);
+              formData.append("parent_id", category.value.parent_id); // Use 'parent_id'
               _context3.next = 6;
               return axios__WEBPACK_IMPORTED_MODULE_1___default().post("/api/category-update/".concat(category.value.id), formData);
             case 6:
               router.push({
-                name: 'category-list'
+                name: "category-list"
               });
               _context3.next = 12;
               break;
@@ -19971,7 +19972,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     // Define a computed property to handle a null parent_id
     var selectedParent = (0,vue__WEBPACK_IMPORTED_MODULE_0__.computed)({
       get: function get() {
-        return category.value.parent_id || '';
+        return category.value.parent_id || "";
       },
       // Use an empty string as a default value
       set: function set(value) {
@@ -20024,7 +20025,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context.prev = 0;
               _context.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().get('/api/categories');
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/categories");
             case 3:
               response = _context.sent;
               categories.value = response.data;
@@ -20108,10 +20109,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   setup: function setup() {
     var product = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)({
-      name: '',
-      description: '',
-      price: '',
-      category_id: '',
+      name: "",
+      description: "",
+      price: "",
+      category_id: "",
       // Initialize to an empty string
       image: null
     });
@@ -20125,24 +20126,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context.prev = 0;
               formData = new FormData();
-              formData.append('name', product.value.name);
-              formData.append('description', product.value.description);
-              formData.append('price', product.value.price);
-              formData.append('category_id', product.value.category_id);
-              formData.append('image', product.value.image);
+              formData.append("name", product.value.name);
+              formData.append("description", product.value.description);
+              formData.append("price", product.value.price);
+              formData.append("category_id", product.value.category_id);
+              formData.append("image", product.value.image);
               _context.next = 9;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/products', formData, {
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().post("/api/products", formData, {
                 headers: {
-                  'Content-Type': 'multipart/form-data'
+                  "Content-Type": "multipart/form-data"
                 }
               });
             case 9:
               response = _context.sent;
-              console.log('Product created:', response.data);
+              console.log("Product created:", response.data);
 
               // Redirect to the product list
               router.push({
-                name: 'product-list'
+                name: "product-list"
               });
               _context.next = 17;
               break;
@@ -20170,7 +20171,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           case 0:
             _context2.prev = 0;
             _context2.next = 3;
-            return axios__WEBPACK_IMPORTED_MODULE_1___default().get('/api/categories');
+            return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/categories");
           case 3:
             response = _context2.sent;
             // Adjust the endpoint as needed
@@ -20220,13 +20221,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
-(axios__WEBPACK_IMPORTED_MODULE_1___default().defaults).headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+(axios__WEBPACK_IMPORTED_MODULE_1___default().defaults).headers.common["X-CSRF-TOKEN"] = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   setup: function setup() {
     var product = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)({
       id: null,
-      name: '',
-      description: '',
+      name: "",
+      description: "",
       price: null,
       category_id: null,
       image: null
@@ -20274,7 +20275,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().get('/api/categories');
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/categories");
             case 3:
               response = _context2.sent;
               categories.value = response.data;
@@ -20302,20 +20303,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context3.prev = 0;
               formData = new FormData();
-              formData.append('name', product.value.name);
-              formData.append('description', product.value.description);
-              formData.append('price', product.value.price);
-              formData.append('category_id', product.value.category_id);
-              formData.append('image', product.value.image);
+              formData.append("name", product.value.name);
+              formData.append("description", product.value.description);
+              formData.append("price", product.value.price);
+              formData.append("category_id", product.value.category_id);
+              formData.append("image", product.value.image);
               _context3.next = 9;
               return axios__WEBPACK_IMPORTED_MODULE_1___default().post("/api/product-update/".concat(product.value.id), formData, {
                 headers: {
-                  'Content-Type': 'multipart/form-data'
+                  "Content-Type": "multipart/form-data"
                 }
               });
             case 9:
               router.push({
-                name: 'product-list'
+                name: "product-list"
               });
               _context3.next = 15;
               break;
@@ -20383,8 +20384,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   setup: function setup() {
     var products = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
     var categories = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
-    var selectedCategory = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
-    var sortOrder = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('asc');
+    var selectedCategory = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)("");
+    var sortOrder = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)("asc");
     var fetchCategories = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var response;
@@ -20392,7 +20393,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) switch (_context.prev = _context.next) {
             case 0:
               try {
-                response = axios__WEBPACK_IMPORTED_MODULE_1___default().get('/api/categories').then(function (response) {
+                response = axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/categories").then(function (response) {
                   categories.value = response.data;
                   console.log(response.data);
                 });
@@ -20417,7 +20418,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _context2.prev = 0;
               _context2.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_1___default().get('/api/products' + '?sortBy=' + sortOrder.value + '&category_id=' + selectedCategory.value);
+              return axios__WEBPACK_IMPORTED_MODULE_1___default().get("/api/products" + "?sortBy=" + sortOrder.value + "&category_id=" + selectedCategory.value);
             case 3:
               response = _context2.sent;
               products.value = response.data;
@@ -20750,7 +20751,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         return $setup.deleteCategory(category.id);
       },
       "class": "p-2 col border btn btn-danger"
-    }, "Delete", 8 /* PROPS */, _hoisted_7)])])]);
+    }, " Delete ", 8 /* PROPS */, _hoisted_7)])])]);
   }), 128 /* KEYED_FRAGMENT */))])])]);
 }
 
@@ -21113,7 +21114,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         return $setup.deleteProduct(product.id);
       },
       "class": "p-2 col border btn btn-danger"
-    }, "Delete", 8 /* PROPS */, _hoisted_17)])])]);
+    }, " Delete ", 8 /* PROPS */, _hoisted_17)])])]);
   }), 128 /* KEYED_FRAGMENT */))])])]);
 }
 
@@ -21221,7 +21222,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.product-image[data-v-84d5daee] {\r\n    max-width: 100px;\r\n    max-height: 100px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.product-image[data-v-84d5daee] {\r\n  max-width: 100px;\r\n  max-height: 100px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

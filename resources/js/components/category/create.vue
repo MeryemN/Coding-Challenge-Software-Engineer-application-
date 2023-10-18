@@ -62,7 +62,6 @@ export default {
     const createCategory = async () => {
       try {
         const response = await axios.post("/api/categories", category.value);
-
         if (response.status === 201) {
           router.push({ name: "category-list" });
         } else {

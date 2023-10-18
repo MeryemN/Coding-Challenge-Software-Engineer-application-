@@ -34,13 +34,14 @@ class CategoryController extends Controller
         return response()->json(['error' => 'Category not found.'], 404);
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(Request $request)
     {
         try {
-            $createdCategory = $this->categoryService->createCategory($request);
-            return response()->json($createdCategory, 201); // 201 Created
+            $this->categoryService->createCategory($request);
+
+            return 'Category created successfully.';
         } catch (ValidationException $e) {
-            return response()->json(['error' => $e->errors()], 400); // 400 Bad Request
+            return $e->errors();
         }
     }
 
