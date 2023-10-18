@@ -2,11 +2,11 @@
 
 namespace App\Interfaces;
 
-interface ProductRepositoryInterface 
+interface ProductRepositoryInterface
 {
-    public function getAllProducts($request);
-    public function getProductById($productId);
-    public function deleteProduct($productId);
-    public function createProduct(array $productDetails);
-    public function updateProduct($productId, array $newDetails);
+    public function all($request);
+    public function find($id);
+    public function delete($id);
+    public function create(array $productDetails);
+    public function update($id, array $newDetails);
 }

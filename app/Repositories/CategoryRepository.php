@@ -7,29 +7,29 @@ use App\Models\Category;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
-    public function getAllCategories()
+    public function all()
     {
         $categories = Category::with('parent')->get();
         return $categories;
     }
 
-    public function getCategoryById($categoryId)
+    public function find($id)
     {
-        return Category::with('parent')->findOrFail($categoryId);
+        return Category::with('parent')->findOrFail($id);
     }
 
-    public function deleteCategory($categoryId)
+    public function delete($id)
     {
-        Category::destroy($categoryId);
+        Category::destroy($id);
     }
 
-    public function createCategory(array $categoryDetails)
+    public function create(array $categoryDetails)
     {
         return Category::create($categoryDetails);
     }
 
-    public function updateCategory($categoryId, array $newDetails)
+    public function update($id, array $newDetails)
     {
-        return Category::whereId($categoryId)->update($newDetails);
+        return Category::whereId($id)->update($newDetails);
     }
 }
