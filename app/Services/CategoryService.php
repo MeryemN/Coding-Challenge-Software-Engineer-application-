@@ -20,7 +20,8 @@ class CategoryService implements CategoryServiceInterface
     {
         // Validate the request data
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:50',
+            'name' => 'required|string|max:50',
+            'parent_id' => 'integer|nullable',
         ]);
 
         // If validation passes, create a new product
@@ -34,9 +35,16 @@ class CategoryService implements CategoryServiceInterface
 
     public function updateCategory(Request $request, $id)
     {
+        // Check if the product exists
+        $category = $this->getCategoryById($id);
+        if ($category) {
+            return response()->json(['error' => 'Category not found'], 404);
+        }
+
         // Validate the request data
         $validator = Validator::make($request->all(), [
-            'name' => 'sometimes|required|max:50',
+            'name' => 'required|string|max:50',
+            'parent_id' => 'integer|nullable',
         ]);
 
         // If validation passes, create a new product

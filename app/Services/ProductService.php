@@ -24,10 +24,19 @@ class ProductService implements ProductServiceInterface
 
         // Validate the request data
         $validator = Validator::make($request->all(), [
-            'name' => 'required|max:50',
-            'description' => 'required',
-            'price' => 'required|numeric|positive',
+            'name' => 'required|string',
+            'description' => 'string',
+            'price' => 'required|numeric',
+            'image' => 'file', // Ensure it's a file
+            'category_id' => 'integer',
         ]);
+
+        // Handle image upload and store it in a storage location
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imagePath = $image->store('product', 'public'); // Store in the public/product directory
+            $validatedData['image'] = $imagePath;
+        }
 
         // If validation didn't passe, throw an error
         if ($validator->fails()) {
@@ -40,16 +49,31 @@ class ProductService implements ProductServiceInterface
 
     public function updateProduct(Request $request, $id)
     {
+        // Check if the product exists
+        $product = $this->getProductById($id);
+        if ($product) {
+            return response()->json(['error' => 'Product not found'], 404);
+        }
+
         // Validate the request data
         $validator = Validator::make($request->all(), [
-            'name' => 'sometimes|required|max:50',
-            'description' => 'sometimes|required',
-            'price' => 'sometimes|required|numeric',
+            'name' => 'required|string',
+            'description' => 'string',
+            'price' => 'required|numeric',
+            'image' => 'file', // Ensure it's a file
+            'category_id' => 'integer',
         ]);
+
+        // Handle image upload and store it in a storage location
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imagePath = $image->store('product', 'public'); // Store in the public/product directory
+            $validatedData['image'] = $imagePath;
+        }
 
         // If validation didn't passe, throw an error
         if ($validator->fails()) {
-            return ['error' => $validator->errors()];
+            return response()->json(['error' => $validator->errors()], 400);
         }
 
         // If validation passes, update the product

@@ -8,7 +8,7 @@ use App\Interfaces\ProductServiceInterface;
 use App\Services\CategoryService;
 use App\Services\ProductService;
 
-class RepositoryServiceProvider extends ServiceProvider
+class ServiceServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
