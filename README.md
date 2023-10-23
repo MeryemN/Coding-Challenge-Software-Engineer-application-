@@ -53,3 +53,9 @@ These instructions will get you a copy of the project up and running on your loc
      ```bash
      npm run dev
      ```
+
+5. **For creation of product from cli run this command with your params:**
+
+   ```bash
+    - php artisan product:create "Product by cli" "cli" 100 1 "C:\Users\lenovo\Downloads\images.png"
+     ```
