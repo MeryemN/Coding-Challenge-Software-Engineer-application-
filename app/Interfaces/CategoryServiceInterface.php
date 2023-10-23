@@ -32,7 +32,7 @@ interface CategoryServiceInterface
      * @param Request $request The HTTP request object containing the information for the new category.
      * @return mixed Should return the newly created category entity or equivalent representation.
      */
-    public function createCategory(Request $request);
+    public function createCategory(array $data);
 
     /**
      * Handle the update of an existing category, identified by its unique identifier.
@@ -41,7 +41,7 @@ interface CategoryServiceInterface
      * @param int $id The unique identifier of the category to be updated.
      * @return mixed Should return the updated category entity or equivalent representation.
      */
-    public function updateCategory(Request $request, $id);
+    public function updateCategory($id, array $data);
 
     /**
      * Handle the deletion of a category, identified by its unique identifier.

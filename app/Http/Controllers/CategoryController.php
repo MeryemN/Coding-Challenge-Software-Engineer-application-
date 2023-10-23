@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\CategoryServiceInterface;
+use App\Interfaces\CategoryServiceInterface;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -35,14 +35,15 @@ class CategoryController extends Controller
     }
 
     public function store(Request $request)
-    {
-        try {
-            $this->categoryService->createCategory($request);
+    {  
+        $data = $request->all();
+        $result = $this->categoryService->createCategory($data);
 
-            return 'Category created successfully.';
-        } catch (ValidationException $e) {
-            return $e->errors();
+        if (isset($result['error'])) {
+            return response()->json($result, 422);
         }
+
+        return response()->json($result, 201);
     }
 
     public function edit($id): JsonResponse
@@ -58,30 +59,24 @@ class CategoryController extends Controller
 
     public function update(Request $request, $id): JsonResponse
     {
-        try {
-            $validatedData = $request->validate([
-                'name' => 'required|string',
-                'parent_id' => 'integer|nullable',
-            ]);
+        $data = $request->all();
+        $result = $this->categoryService->updateCategory($id, $data);
 
-            $updatedCategory = $this->categoryService->updateCategory($id, $validatedData);
-
-            if ($updatedCategory) {
-                return response()->json(['message' => 'Category updated successfully.'], 200);
-            } else {
-                return response()->json(['error' => 'Category not found.'], 404);
-            }
-        } catch (ValidationException $e) {
-            return response()->json(['error' => $e->errors()], 400);
+        if (isset($result['error'])) {
+            return response()->json($result, 422);
         }
+
+        return response()->json($result, 200);
     }
 
     public function destroy($id): JsonResponse
     {
-        if ($this->categoryService->deleteCategory($id)) {
-            return response()->json(['message' => 'Category deleted successfully.'], 200);
-        } else {
-            return response()->json(['error' => 'Category not found.'], 404);
+        $result = $this->categoryService->deleteCategory($id);
+
+        if (isset($result['error'])) {
+            return response()->json($result, 404);
         }
+
+        return response()->json($result, 200);
     }
 }

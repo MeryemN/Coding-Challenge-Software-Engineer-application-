@@ -37,8 +37,9 @@ class ProductController extends Controller
     public function store(Request $request): JsonResponse
     {
         try {
-            $product = $this->productService->createProduct($request);
-            return response()->json($product, 201); // 201 Created
+            $data = $request->all();
+            $result = $this->productService->createProduct($data);
+            return response()->json($result, 201); // 201 Created
         } catch (ValidationException $e) {
             return response()->json(['error' => $e->errors()], 400); // 400 Bad Request
         }
@@ -47,8 +48,10 @@ class ProductController extends Controller
     public function update(Request $request, $id): JsonResponse
     {
         try {
-            $product = $this->productService->updateProduct($id, $request);
-            return response()->json($product, 200);
+            $data = $request->all();
+            $result = $this->productService->updateProduct($id, $data);
+
+            return response()->json($result, 200);
         } catch (ValidationException $e) {
             return response()->json(['error' => $e->errors()], 400);
         }

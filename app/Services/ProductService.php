@@ -2,87 +2,92 @@
 
 namespace App\Services;
 
+use App\Models\Product;
 use App\Interfaces\ProductRepositoryInterface;
 use App\Interfaces\ProductServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Contracts\Validation\Factory as ValidationFactory;
 
 class ProductService implements ProductServiceInterface
 {
     protected $productRepository;
+    protected $validator;
 
-    public function __construct(ProductRepositoryInterface $productRepository)
+    public function __construct(ProductRepositoryInterface $productRepository, ValidationFactory $validator)
     {
         $this->productRepository = $productRepository;
+        $this->validator = $validator;
     }
 
-    public function createProduct(Request $request)
+    public function createProduct(array $data)
     {
-        Validator::extend('positive', function ($attribute, $value, $parameters, $validator) {
+        $this->validator->extend('positive', function ($attribute, $value, $parameters, $validator) {
             return $value > 0;
         });
 
         // Validate the request data
-        $validator = Validator::make($request->all(), [
+        $validator =  $this->validator->make($data, [
             'name' => 'required|string',
-            'description' => 'string',
-            'price' => 'required|numeric',
+            'description' => 'required|string',
             'image' => 'file', // Ensure it's a file
+            'price' => 'required|numeric',
             'category_id' => 'integer',
         ]);
 
-        // Handle image upload and store it in a storage location
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imagePath = $image->store('product', 'public'); // Store in the public/product directory
-            $validatedData['image'] = $imagePath;
-        }
-
         // If validation didn't passe, throw an error
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 422);
+            return ['error' => 'Validation failed', 'details' => $validator->errors()];
+        }
+
+        // // Handle image upload and store it in a storage location
+        if (array_key_exists('image', $data)) {
+            $image = $data['image'];
+            $imagePath = $image->store('images', 'images'); // Store in the 'images' disk
+            $data['image'] = $imagePath;
         }
 
         // If validation passes, create a new product
-        return $this->productRepository->create($request->all());
+        return $this->productRepository->create($data);
     }
 
-    public function updateProduct(Request $request, $id)
+
+    public function updateProduct($id, array $data)
     {
         // Check if the product exists
-        $product = $this->getProductById($id);
-        if ($product) {
-            return response()->json(['error' => 'Product not found'], 404);
+        $product =  $this->productRepository->find($id);
+        if (!$product) {
+            return ['error' => 'Product not found'];
         }
 
         // Validate the request data
-        $validator = Validator::make($request->all(), [
+        $validator =  $this->validator->make($data, [
             'name' => 'required|string',
-            'description' => 'string',
-            'price' => 'required|numeric',
+            'description' => 'required|string',
             'image' => 'file', // Ensure it's a file
+            'price' => 'required|numeric',
             'category_id' => 'integer',
         ]);
 
-        // Handle image upload and store it in a storage location
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imagePath = $image->store('product', 'public'); // Store in the public/product directory
-            $validatedData['image'] = $imagePath;
-        }
-
         // If validation didn't passe, throw an error
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
+            return ['error' => 'Validation failed', 'details' => $validator->errors()];
+        }
+
+        // Handle image upload and store it in a storage location
+        if (array_key_exists('image', $data)) {
+            $image = $data['image'];
+            $imagePath = $image->store('images', 'images'); // Store in the 'images' disk
+            $data['image'] = $imagePath;
         }
 
         // If validation passes, update the product
-        return $this->productRepository->update($id, $request->all());
+        return $this->productRepository->update($id, $data);
     }
 
-    public function getAllProducts(Request $request)
+    public function getAllProducts()
     {
-        return $this->productRepository->all($request);
+        return $this->productRepository->all();
     }
 
     public function getProductById($id)

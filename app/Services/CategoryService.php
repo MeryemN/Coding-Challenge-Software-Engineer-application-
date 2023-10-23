@@ -2,39 +2,47 @@
 
 namespace App\Services;
 
-use App\Contracts\CategoryServiceInterface;
+use App\Interfaces\CategoryServiceInterface;
 use App\Interfaces\CategoryRepositoryInterface;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Contracts\Validation\Factory as ValidationFactory;
+
 
 class CategoryService implements CategoryServiceInterface
 {
     protected $categoryRepository;
+    protected $validator;
 
-    public function __construct(CategoryRepositoryInterface $categoryRepository)
+    public function __construct(CategoryRepositoryInterface $categoryRepository, ValidationFactory $validator)
     {
         $this->categoryRepository = $categoryRepository;
+        $this->validator = $validator;
     }
 
-    public function createCategory(Request $request)
+    public function createCategory(array $data)
     {
-        $validatedData = $request->validate([
+        $validator = $this->validator->make($data, [
             'name' => 'required|string',
-            'parent_id' => 'integer|nullable',
+            'parent_id' => 'integer',
         ]);
-        return $this->categoryRepository->create($validatedData);
+
+        if ($validator->fails()) {
+            return ['error' => 'Validation failed', 'details' => $validator->errors()];
+        }
+
+        return  $this->categoryRepository->create($data);
     }
 
-    public function updateCategory(Request $request, $id)
+
+    public function updateCategory($id, array $data)
     {
         // Check if the product exists
         $category = $this->getCategoryById($id);
-        if ($category) {
-            return response()->json(['error' => 'Category not found'], 404);
+        if (!$category) {
+            return ['error' => 'Category not found'];
         }
-
         // Validate the request data
-        $validator = Validator::make($request->all(), [
+
+        $validator = $this->validator->make($data, [
             'name' => 'required|string|max:50',
             'parent_id' => 'integer|nullable',
         ]);
@@ -43,17 +51,14 @@ class CategoryService implements CategoryServiceInterface
         if ($validator->fails()) {
             return ['error' => $validator->errors()];
         }
-
         // If validation passes, update the category
-        return $this->categoryRepository->update($id, $request->all());
+        return $this->categoryRepository->update($id, $data);
     }
-
 
     public function getCategoryById($id)
     {
         return $this->categoryRepository->find($id);
     }
-
 
     public function getAllCategories()
     {

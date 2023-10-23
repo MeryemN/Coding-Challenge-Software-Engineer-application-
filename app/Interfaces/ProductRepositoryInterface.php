@@ -16,7 +16,7 @@ interface ProductRepositoryInterface
      * @param mixed $request The data that may contain criteria for filtering query results.
      * @return mixed A collection of Product entities.
      */
-    public function all($request);
+    public function all();
 
     /**
      * Retrieve a product by its unique identifier.
